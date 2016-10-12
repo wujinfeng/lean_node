@@ -1,0 +1,15 @@
+根据进程名字关闭进程
+linux 环境
+let outPid = child.execSync("ps -ef|grep '进程名字ad_web_.*js'|grep -v 'grep' |awk '{print $2}'", {encoding: 'utf8'});
+
+if (outPid) {
+  let pids = outPid.split('\n');
+  for (let i = 0; i < pids.length; i++) {
+    let p = pids[i];
+    if (p) {
+      child.execSync('kill -9 ' + p);
+      console.log('关闭：' + p);
+    }
+  }
+}
+
