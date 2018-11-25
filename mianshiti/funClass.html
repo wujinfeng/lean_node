@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        function Foo() {
+            getName = function () {
+                console.log(1);
+            };
+            return this;
+        }
+
+        Foo.getName = function () {
+            console.log(2)
+        }
+
+        Foo.prototype.getName = function () {
+            console.log(3)
+        }
+
+        var getName = function () {
+            console.log(4)
+        }
+
+        function getName() {
+            console.log(5)
+        }
+
+        Foo.getName(); // 2
+        getName(); // 4
+        Foo().getName(); //1
+        getName(); // 1
+        new Foo.getName(); // 2
+        new Foo().getName(); // 3
+        new new Foo().getName(); //3
+        // 函数提升优先级比变量提升要高，且不会被变量声明覆盖，但是会被变量赋值覆盖。
+        // 优先级：点>new（带参数）>new (不带参数)
+    </script>
+</body>
+
+</html>
